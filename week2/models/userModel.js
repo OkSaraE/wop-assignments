@@ -54,6 +54,19 @@ const deleteUser = async (userId, next) => {
   }
 }
 
+const getUserLogin = async (params, next) => {
+  try {
+    console.log(params);
+    const [rows] = await promisePool.execute(
+        'SELECT * FROM wop_user WHERE email = ?;',
+        params);
+    return rows;
+  } catch (e) {
+    console.log('error', e.message);
+    next(httpError('Database error', 500));
+  }
+};
+
 
 module.exports = {
   getAllUsers,
@@ -61,4 +74,5 @@ module.exports = {
   addUser,
   updateUser,
   deleteUser,
+  getUserLogin,
 };
