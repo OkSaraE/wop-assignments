@@ -23,9 +23,9 @@ router.route("/")
   )
   .put(user_put);
 
-router.route("/:id").get(user_get).delete(user_delete);
-
  // userRoute.js
  router.get('/token', check_token);
+
+router.route("/:id").get(user_get).delete(user_delete);
 
 module.exports = router;

@@ -10,26 +10,32 @@ const {
   cat_update_put,
   cat_delete,
 } = require("../controllers/catController");
-const {body} = require('express-validator');
+const { body } = require("express-validator");
 const router = express.Router();
 
 router
   .route("/")
   .get(cat_list_get)
-  .post(upload.single("cat"),
-    body('name').isLength({min:1}).escape(),
-    body('birthdate').isDate(),
-    body('weight').isNumeric(),
-    body('owner').isNumeric(),
-    cat_post)
+  .post(
+    upload.single("cat"),
+    body("name").isLength({ min: 1 }).escape(),
+    body("birthdate").isDate(),
+    body("weight").isNumeric(),
+    cat_post
+  )
   .put(
-    body('name').isLength({min:1}).escape(),
-    body('birthdate').isDate(),
-    body('weight').isNumeric(),
-    body('owner').isNumeric(),
-    body('id').isNumeric(),
-    cat_update_put);
+    body("name").isLength({ min: 1 }).escape(),
+    body("birthdate").isDate(),
+    body("weight").isNumeric(),
+    body("owner").isNumeric(),
+    body("id").isNumeric(),
+    cat_update_put
+  );
 
-router.route("/:id").get(cat_get).delete(cat_delete);
+router
+  .route("/:id")
+  .get(cat_get)
+  .delete(cat_delete)
+  .put(body("name").isLength({ min: 1 }).escape(), body(birthdate));
 
 module.exports = router;
