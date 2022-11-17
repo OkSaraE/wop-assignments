@@ -8,6 +8,7 @@ const {
   user_post,
   user_put,
   user_delete,
+  check_token,
 } = require("../controllers/userController");
 const {body} = require('express-validator');
 const router = express.Router();
@@ -23,5 +24,8 @@ router.route("/")
   .put(user_put);
 
 router.route("/:id").get(user_get).delete(user_delete);
+
+ // userRoute.js
+ router.get('/token', check_token);
 
 module.exports = router;

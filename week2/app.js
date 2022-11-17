@@ -6,7 +6,7 @@ const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const catRoute = require("./routes/catRoute");
 const { httpError } = require("./utils/errors");
-const passport = require("passport");
+const passport = require("./utils/pass");
 const app = express();
 const port = 3000;
 
