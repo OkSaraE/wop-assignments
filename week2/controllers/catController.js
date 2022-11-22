@@ -52,6 +52,12 @@ const cat_post = async (req, res, next) => {
     }
 
     console.log("cat_post", req.body, req.file);
+
+    const thumbnail = await sharp(req.file.path)
+      .resize(160, 160)
+      .png()
+      .toFile("./thumbnails/" + req.file.filename);
+
     const data = [
       req.body.name,
       req.body.birthdate,
