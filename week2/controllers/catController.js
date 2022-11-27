@@ -9,6 +9,8 @@ const {
 } = require("../models/catModel");
 const { httpError } = require("../utils/errors");
 const { validationResult } = require("express-validator");
+const { getCoordinates } = require("../utils/imageMeta");
+const sharp = require('sharp');
 
 const cat_list_get = async (req, res, next) => {
   try {
@@ -42,7 +44,6 @@ const cat_post = async (req, res, next) => {
   try {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       // There are errors.
       // Error messages can be returned in an array using `errors.array()`.
@@ -58,12 +59,15 @@ const cat_post = async (req, res, next) => {
       .png()
       .toFile("./thumbnails/" + req.file.filename);
 
+    const coords = await getCoordinates(req.file.path);
+
     const data = [
       req.body.name,
       req.body.birthdate,
       req.body.weight,
       req.user.user_id,
       req.file.filename,
+      JSON.stringify(coords),
     ];
 
     const result = await addCat(data, next);
